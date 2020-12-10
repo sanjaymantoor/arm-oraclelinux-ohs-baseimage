@@ -139,7 +139,8 @@
                }
             ]
          }
-      },
+       }
+    },
     "resources": [
         {
             "type": "Microsoft.Storage/storageAccounts",
