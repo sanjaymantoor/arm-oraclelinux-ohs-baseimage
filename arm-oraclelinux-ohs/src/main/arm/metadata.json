@@ -1,0 +1,10 @@
+{
+  "$schema": "https://aka.ms/azure-quickstart-templates-metadata-schema#",
+  "type": "QuickStart",
+  "itemDisplayName": "Creating OHS base image",
+  "icon": "oracle-linux",
+  "description": "This template allows you to createOHS standalone domain on Oracle Linux VM with pre-installed OHS. This will deploy a A3 size VM in the resource group location and return the FQDN of the VM.",
+  "summary": "This template takes a minimum amount of parameters.",
+  "githubUsername": "wls-eng",
+  "dateUpdated": "2020-12-08"
+}
