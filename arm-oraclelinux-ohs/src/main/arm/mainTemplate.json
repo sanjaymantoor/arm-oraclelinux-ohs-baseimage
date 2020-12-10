@@ -278,7 +278,7 @@
         {
             "type": "Microsoft.Compute/virtualMachines/extensions",
             "apiVersion": "2020-06-01",
-            "name": "[concat(parameters('adminVMName'),'/newuserscript'))]",
+            "name": "[concat(parameters('adminVMName'),'/newuserscript')]",
             "location": "[parameters('location')]",
             "properties": {
                 "publisher": "Microsoft.Azure.Extensions",
@@ -291,7 +291,7 @@
                     ]
                 },
                 "protectedSettings": {
-                   "commandToExecute": "[concat('sh setupOHS.sh',' ',parameters('acceptOTNLicenseAgreement'),' ',parameters('otnAccountUsername'),' ',parameters('otnAccountPassword'))]"
+                   "commandToExecute": "[concat(variables('name_scriptFile'),' ',parameters('acceptOTNLicenseAgreement'),' ',parameters('otnAccountUsername'),' ',parameters('otnAccountPassword'))]"
                 }
             }
         }                                    		                    
