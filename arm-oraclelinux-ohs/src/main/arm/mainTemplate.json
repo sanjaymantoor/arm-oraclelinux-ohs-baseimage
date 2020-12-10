@@ -194,7 +194,7 @@
             "name": "[concat(parameters('adminVMName'),variables('name_nic'))]",
             "location": "[parameters('location')]",
             "dependsOn": [
-                "[variables('name_virtualNetwork')]",
+                "[variables('name_virtualNetwork')]"
             ],
             "properties": {
                 "ipConfigurations": [
