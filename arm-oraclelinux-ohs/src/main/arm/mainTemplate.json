@@ -118,7 +118,7 @@
       "const_addressPrefix": "10.0.0.0/16",
       "name_subnet": "Subnet",
       "const_subnetPrefix": "10.0.0.0/24",
-      "name_storageAccountType":"Standard_LRS",
+      "const_storageAccountType":"Standard_LRS",
       "name_publicIPAddress": "PublicIP",
       "const_publicIPAddressType": "Dynamic",
       "const_vmSize": "[parameters('vmSizeSelect')]",
