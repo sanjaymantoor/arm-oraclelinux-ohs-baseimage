@@ -248,7 +248,7 @@
                         {
                             "lun": 0,
                             "createOption": "FromImage",
-                            "diskSizeGB": 900,
+                            "diskSizeGB": 40,
                             "managedDisk": {
                                 "storageAccountType": "Standard_LRS"
                             }
