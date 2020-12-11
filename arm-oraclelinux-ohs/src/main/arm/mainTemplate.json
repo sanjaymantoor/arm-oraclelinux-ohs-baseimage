@@ -163,7 +163,7 @@
             "properties": {
                 "publicIPAllocationMethod": "[variables('const_publicIPAddressType')]",
                 "dnsSettings": {
-                    "domainNameLabel": "[concat(toLower(parameters('dnsLabelPrefix')),'-',take(replace(parameters('guidValue'),'-',''),10),'-',toLower(parameters('adminVMName')))]"
+                    "domainNameLabel": "[concat(toLower(parameters('dnsLabelPrefix')),'-',take(replace(parameters('guidValue'),'-',''),10))]"
                 }
             }
         },
@@ -210,10 +210,7 @@
                             }
                         }
                     }
-                ],
-                "dnsSettings": {
-                    "internalDnsNameLabel": "[parameters('adminVMName')]"
-                }
+                ]
             }
         },
         {
