@@ -262,11 +262,6 @@
                         "storageUri": "[reference(resourceId('Microsoft.Storage/storageAccounts/', variables('name_storageAccount')), '2019-06-01').primaryEndpoints.blob]"
                     }
                 }
-            },
-            "plan": {
-                "name": "[parameters('linuxOSVersion')]",
-                "publisher": "[variables('const_imagePublisher')]",
-                "product": "[variables('const_imageOffer')]"
             }
         },
         {
