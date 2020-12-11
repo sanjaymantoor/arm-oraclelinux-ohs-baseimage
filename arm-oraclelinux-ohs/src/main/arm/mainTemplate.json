@@ -263,12 +263,12 @@
         },
         {
             "type": "Microsoft.Compute/virtualMachines/extensions",
-            "apiVersion": "2020-06-01",
             "name": "[concat(parameters('adminVMName'),'/newuserscript')]",
-            "dependsOn": [
-            		"[parameters('adminVMName')]"
-            ],
+            "apiVersion": "2019-07-01",
             "location": "[parameters('location')]",
+            "dependsOn": [
+                "[parameters('adminVMName')]"
+            ],
             "properties": {
                 "publisher": "Microsoft.Azure.Extensions",
                 "type": "CustomScript",
@@ -277,12 +277,12 @@
                 "settings": {
                     "fileUris": [
                         "[uri(parameters('_artifactsLocation'), concat('../scripts/', variables('name_scriptFile'), parameters('_artifactsLocationSasToken')))]"
-                    ]
-                },
-                "commandToExecute": "[concat('sh',' ',variables('name_scriptFile'),' ',parameters('acceptOTNLicenseAgreement'),' ',parameters('otnAccountUsername'),' ',parameters('otnAccountPassword'))]"
+                    ],
+                    "commandToExecute": "[concat('sh',' ',variables('name_scriptFile'),' ',parameters('acceptOTNLicenseAgreement'),' ',parameters('otnAccountUsername'),' ',parameters('otnAccountPassword'),' ')]"
+                }
             }
-        }                                    		                    
-     ],
+        }
+    ],
     "outputs": {
         "artifactsLocationPassedIn": {
             "type": "string",
