@@ -265,6 +265,9 @@
             "type": "Microsoft.Compute/virtualMachines/extensions",
             "apiVersion": "2020-06-01",
             "name": "[concat(parameters('adminVMName'),'/newuserscript')]",
+            "dependsOn": [
+            		"[parameters('adminVMName')]"
+            ],
             "location": "[parameters('location')]",
             "properties": {
                 "publisher": "Microsoft.Azure.Extensions",
