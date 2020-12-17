@@ -110,6 +110,7 @@
    },
    "variables":{
    	  "name_storageAccount": "[concat(take(replace(parameters('guidValue'),'-',''),6),'olvm')]",
+   	  "storageContainerUri":"[concat(concat('https://', variables('name_storageAccount'), '.blob.core.windows.net/'), 'vhds/')]",
    	  "const_hyphen": "-",
       "const_imagePublisher":"Oracle",
       "const_imageOffer":"Oracle-Linux",
@@ -217,6 +218,10 @@
             "apiVersion": "2020-06-01",
             "name": "[parameters('adminVMName')]",
             "location": "[parameters('location')]",
+            "dependsOn":[
+                   "[resourceId('Microsoft.Storage/storageAccounts/', variables('name_storageAccount'))]",
+                   "[resourceId('Microsoft.Network/networkInterfaces/', concat(parameters('adminVMName'),variables('name_nic')))]"
+             ],
             "properties": {
                 "hardwareProfile": {
                     "vmSize": "[variables('const_vmSize')]"
@@ -235,13 +240,24 @@
                         "version":"latest"
                     },
                     "osDisk": {
-                        "createOption": "FromImage"
+                        "osType":"Linux",
+                        "name": "[concat(parameters('adminVMName'),'-OSDisk')]",
+                        "caching":"ReadWrite",
+                        "createOption": "FromImage",
+                        "diskSizeGB":32,
+                        "vhd":{
+                           "uri":"[concat(variables('storageContainerUri'), parameters('adminVMName'), '-OS.vhd')]"
+                        }
                     },
                     "dataDisks": [
                         {
                             "lun": 0,
-                            "diskSizeGB": 40,
-                            "createOption":"Empty"
+                            "name":"[concat(parameters('adminVMName'),'-DD')]",
+                            "createOption":"Empty",
+                            "vhd":{
+                            },
+                            "caching":"None",
+                            "diskSizeGB":900
                         }
                     ]
                 },
