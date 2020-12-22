@@ -28,9 +28,6 @@ function addOracleGroupAndUser()
 {
     #add oracle group and user
     echo "Adding oracle user and group..."
-    groupname="oracle"
-    username="oracle"
-    user_home_dir="/u01/oracle"
     USER_GROUP=${groupname}
     sudo groupadd $groupname
     sudo useradd -d ${user_home_dir} -g $groupname $username
@@ -80,9 +77,9 @@ function setupInstallPath()
     #create custom directory for setting up wls and jdk
     sudo mkdir -p $JDK_PATH
     sudo mkdir -p $OHS_PATH
-    sudo chown -R $username:$groupname /u01/app
-    sudo chown -R $username:$groupname $JDK_PATH
-    sudo chown -R $username:$groupname $OHS_PATH
+    sudo chown -R $username:$groupname ${APP_PATH}
+    sudo chown -R $username:$groupname ${JDK_PATH}
+    sudo chown -R $username:$groupname ${OHS_PATH}
 }
 
 # Download JDK for WLS
@@ -274,8 +271,9 @@ export acceptOTNLicenseAgreement=$1
 export otnusername=$2
 export otnpassword=$3
 export OHS_DEPNDENCIES="zip unzip wget rng-tools binutils compat-libcap1 compat-libstdc++-33 compat-libstdc++-33.i686 gcc gcc-c++ glibc glibc.i686 glibc-devel libaio libaio-devel libgcc libgcc.i686 libstdc++ libstdc++.i686 libstdc++-devel ksh make sysstat numactl numactl-devel"
-export JDK_PATH="/u01/app/jdk"
-export OHS_PATH="/u01/app/ohs"
+export APP_PATH="/u01/app"
+export JDK_PATH="${APP_PATH}/jdk"
+export OHS_PATH="${APP_PATH}/ohs"
 export JDK_DOWNLOAD_URL="https://download.oracle.com/otn/java/jdk/8u271-b09/61ae65e088624f5aaa0b1d2d801acb16/jdk-8u271-linux-x64.tar.gz"
 export JDK_FILE_NAME="jdk-8u271-linux-x64.tar.gz"
 export jdkSha256Checksum="eba7926a683bb65c6f4e1c502ce624346c42b00fb5531deba296f2560b452c78"
@@ -288,6 +286,9 @@ export OHS_DOWNLOAD_URL="https://download.oracle.com/otn/nt/middleware/12c/$OHS_
 export OHS_INSTALLER_FILE="fmw_12.2.1.4.0_ohs_linux64.bin"
 export INSTALL_PATH="$OHS_PATH/install"
 export OHS_INSTALLER="$OHS_PATH/$OHS_INSTALLER_FILE"
+export groupname="oracle"
+export username="oracle"
+export user_home_dir="/u01/oracle"
 
 validateInput
 addOracleGroupAndUser
