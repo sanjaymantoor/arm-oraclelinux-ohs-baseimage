@@ -81,9 +81,10 @@ function setupInstallPath()
     sudo mkdir -p $JDK_PATH
     sudo mkdir -p $OHS_PATH
     sudo mkdir -p $DOMAIN_PATH
+    sudo chown -R $username:$groupname "/u01/app"
     sudo chown -R $username:$groupname $JDK_PATH
     sudo chown -R $username:$groupname $OHS_PATH
-	sudo chown -R $username:$groupname $DOMAIN_PATH 
+    sudo chown -R $username:$groupname $DOMAIN_PATH 
 }
 
 # Download JDK for WLS
