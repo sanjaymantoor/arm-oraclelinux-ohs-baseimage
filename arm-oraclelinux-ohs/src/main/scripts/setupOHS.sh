@@ -80,11 +80,9 @@ function setupInstallPath()
     #create custom directory for setting up wls and jdk
     sudo mkdir -p $JDK_PATH
     sudo mkdir -p $OHS_PATH
-    sudo mkdir -p $DOMAIN_PATH
-    sudo chown -R $username:$groupname "/u01/app"
+    sudo chown -R $username:$groupname /u01/app
     sudo chown -R $username:$groupname $JDK_PATH
     sudo chown -R $username:$groupname $OHS_PATH
-    sudo chown -R $username:$groupname $DOMAIN_PATH 
 }
 
 # Download JDK for WLS
@@ -278,13 +276,9 @@ export otnpassword=$3
 export OHS_DEPNDENCIES="zip unzip wget rng-tools binutils compat-libcap1 compat-libstdc++-33 compat-libstdc++-33.i686 gcc gcc-c++ glibc glibc.i686 glibc-devel libaio libaio-devel libgcc libgcc.i686 libstdc++ libstdc++.i686 libstdc++-devel ksh make sysstat numactl numactl-devel"
 export JDK_PATH="/u01/app/jdk"
 export OHS_PATH="/u01/app/ohs"
-#export JDK_DOWNLOAD_URL="https://download.oracle.com/otn/java/jdk/8u191-b12/2787e4a523244c269598db4e85c51e0c/jdk-8u191-linux-x64.tar.gz"
 export JDK_DOWNLOAD_URL="https://download.oracle.com/otn/java/jdk/8u271-b09/61ae65e088624f5aaa0b1d2d801acb16/jdk-8u271-linux-x64.tar.gz"
-#export JDK_FILE_NAME="jdk-8u191-linux-x64.tar.gz"
 export JDK_FILE_NAME="jdk-8u271-linux-x64.tar.gz"
-#export jdkSha256Checksum="53c29507e2405a7ffdbba627e6d64856089b094867479edc5ede4105c1da0d65"
 export jdkSha256Checksum="eba7926a683bb65c6f4e1c502ce624346c42b00fb5531deba296f2560b452c78"
-#export JDK_VERSION="jdk1.8.0_191"
 export JDK_VERSION="jdk1.8.0_271"
 export JAVA_HOME=$JDK_PATH/$JDK_VERSION
 export PATH=$JAVA_HOME/bin:$PATH
@@ -294,8 +288,6 @@ export OHS_DOWNLOAD_URL="https://download.oracle.com/otn/nt/middleware/12c/$OHS_
 export OHS_INSTALLER_FILE="fmw_12.2.1.4.0_ohs_linux64.bin"
 export INSTALL_PATH="$OHS_PATH/install"
 export OHS_INSTALLER="$OHS_PATH/$OHS_INSTALLER_FILE"
-export OHS_DOMAIN_PATH=${DOMAIN_PATH}/${OHS_DOMAIN_NAME}
-
 
 validateInput
 addOracleGroupAndUser
