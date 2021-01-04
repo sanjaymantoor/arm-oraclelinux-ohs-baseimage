@@ -10,4 +10,4 @@ This template allows us to deploy a simple Oracle Linux VM with Oracle HTTP Serv
 </br>
 *az group deployment create --resource-group &lt;resource-group-name&gt; --template-uri https://raw.githubusercontent.com/sanjaymantoor/arm-oracle-ohs/master/ohsdeploy.json
 
-
+# This repository is used for creating OHS Base image at Azure Market place.
