@@ -222,6 +222,9 @@
                    "[resourceId('Microsoft.Storage/storageAccounts/', variables('name_storageAccount'))]",
                    "[resourceId('Microsoft.Network/networkInterfaces/', concat(parameters('adminVMName'),variables('name_nic')))]"
              ],
+            "tags": {
+                   "SkipGreenTeamLinuxSSHAuthForResource": true
+             },
             "properties": {
                 "hardwareProfile": {
                     "vmSize": "[variables('const_vmSize')]"
