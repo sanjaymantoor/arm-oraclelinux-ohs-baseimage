@@ -251,19 +251,7 @@
                         "vhd":{
                            "uri":"[concat(variables('storageContainerUri'), parameters('adminVMName'), '-OS.vhd')]"
                         }
-                    },
-                    "dataDisks": [
-                        {
-                            "lun": 0,
-                            "name":"[concat(parameters('adminVMName'),'-DD')]",
-                            "createOption":"Empty",
-                            "vhd":{
-                               "uri":"[concat(variables('storageContainerUri'), parameters('adminVMName'), '-DD.vhd')]"
-                            },
-                            "caching":"None",
-                            "diskSizeGB":900
-                        }
-                    ]
+                    }
                 },
                 "networkProfile": {
                     "networkInterfaces": [
