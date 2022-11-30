@@ -92,13 +92,14 @@
       },
       "vmSizeSelect":{
        "type":"string",
-       "defaultValue":"Standard_A3",
+       "defaultValue":"Standard_B2ms",
        "allowedValues":[
            "Standard_A1",
            "Standard_A2",
            "Standard_A3",
            "Standard_A4",
-           "Standard_D2as_v4"
+           "Standard_D2as_v4",
+           "Standard_B2ms"
        ],
        "metadata":{
            "description":"Select appropriate VM Size as per requirement (Standard_A1, Standard_A2, Standard_A3, Standard_A4)"
