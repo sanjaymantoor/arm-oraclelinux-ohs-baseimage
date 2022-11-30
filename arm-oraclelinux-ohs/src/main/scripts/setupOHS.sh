@@ -23,6 +23,21 @@ sudo yum install -y $OHS_DEPNDENCIES
 
 }
 
+#Update the OS patch
+function updateOS()
+{
+	osVersion=`cat /etc/os-release | grep VERSION_ID |cut -f2 -d"="| sed 's/\"//g'`
+	majorVersion=`echo $osVersion |cut -f1 -d"."`
+	minorVersion=`echo $osVersion |cut -f2 -d"."`
+	echo "Kernel version before update:"
+	uname -a
+	echo yum upgrade -y --disablerepo=ol7_latest  --enablerepo=ol${majorVersion}_u${minorVersion}_base --skip-broken
+	yum upgrade -y --disablerepo=ol7_latest  --enablerepo=ol${majorVersion}_u${minorVersion}_base --skip-broken
+	yum upgrade -y polkit
+	echo "Kernel version after update:"
+	uname -a
+}
+
 # Create user "oracle", used for instalation and setup
 function addOracleGroupAndUser()
 {
@@ -293,6 +308,7 @@ export user_home_dir="/u01/oracle"
 validateInput
 addOracleGroupAndUser
 installDependencies
+updateOS
 setupInstallPath
 downloadJDK
 validateJDKZipCheckSum
