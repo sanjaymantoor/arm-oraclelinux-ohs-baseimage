@@ -67,14 +67,14 @@ function opatchUpdate()
 
 function ohspatchUpdate()
 {
-	if [ $opatchURL != "none" ];
+	if [ $ohspatchURL != "none" ];
 	then
 		sudo mkdir -p ${ohsPatchWork}
 		cd ${ohsPatchWork}
-		downloadUsingWget "$opatchURL"
+		downloadUsingWget "$ohspatchURL"
 		echo "OHS patch details before applying patch"
 		runuser -l oracle -c "$oracleHome/OPatch/opatch lsinventory"
-		filename=${opatchURL##*/}
+		filename=${ohspatchURL##*/}
 		unzip $filename
 		sudo chown -R $username:$groupname ${ohsPatchWork}
 		sudo chmod -R 755 ${ohsPatchWork}
@@ -348,7 +348,7 @@ export acceptOTNLicenseAgreement=$1
 export otnusername=$2
 export otnpassword=$3
 export opatchURL="$4"
-export opatchURL="$5"
+export ohspatchURL="$5"
 export ohsPatchWork="/u01/app/ohspatch"
 export OHS_DEPNDENCIES="zip unzip wget rng-tools binutils compat-libcap1 compat-libstdc++-33 compat-libstdc++-33.i686 gcc gcc-c++ glibc glibc.i686 glibc-devel libaio libaio-devel libgcc libgcc.i686 libstdc++ libstdc++.i686 libstdc++-devel ksh make sysstat numactl numactl-devel"
 export APP_PATH="/u01/app"
