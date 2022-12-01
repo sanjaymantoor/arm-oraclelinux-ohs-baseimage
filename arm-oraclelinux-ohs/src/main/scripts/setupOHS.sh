@@ -86,7 +86,7 @@ function ohspatchUpdate()
 			command="${oracleHome}/OPatch/opatch napply -silent -oh ${oracleHome}  -phBaseFile linux64_patchlist.txt"
 			echo $command
 			runuser -l oracle -c "cd ${ohsPatchWork}/*/binary_patches ; ${command}"
-			checkSuccess $? "Error : WebLogic patch update failed"
+			checkSuccess $? "Error : OHS patch update failed"
 		else
 			echo "Applying regular OHS patch"
 			command="${oracleHome}/OPatch/opatch apply -silent"
