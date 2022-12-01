@@ -38,6 +38,68 @@ function updateOS()
 	uname -a
 }
 
+
+# Update th opatch utility as per opatchURL supplied
+function opatchUpdate()
+{
+	if [ $opatchURL != "none" ];
+	then
+		sudo mkdir -p ${opatchWork}
+		cd ${opatchWork}
+		filename=${opatchURL##*/}
+		downloadUsingWget "$opatchURL"
+		echo "Verifying the ${filename} patch download"
+		ls  $filename
+		checkSuccess $? "Error : Downloading ${filename} patch failed"
+		echo "Opatch version before updating patch"
+		runuser -l oracle -c "$oracleHome/OPatch/opatch version"
+		unzip $filename
+		opatchFileName=`find . -name opatch_generic.jar`
+		command="java -jar ${opatchFileName} -silent oracle_home=$oracleHome"
+		sudo chown -R $username:$groupname ${opatchWork}
+		echo "Executing optach update command:"${command}
+		runuser -l oracle -c "cd $oracleHome/wlserver/server/bin ; . ./setWLSEnv.sh ;cd ${opatchWork}; ${command}"
+		checkSuccess $? "Error : Updating opatch failed"
+		echo "Opatch version after updating patch"
+		runuser -l oracle -c "$oracleHome/OPatch/opatch version"
+	fi
+}
+
+function ohspatchUpdate()
+{
+	if [ $opatchURL != "none" ];
+	then
+		sudo mkdir -p ${ohsPatchWork}
+		cd ${ohsPatchWork}
+		downloadUsingWget "$opatchURL"
+		echo "OHS patch details before applying patch"
+		runuser -l oracle -c "$oracleHome/OPatch/opatch lsinventory"
+		filename=${opatchURL##*/}
+		unzip $filename
+		sudo chown -R $username:$groupname ${ohsPatchWork}
+		sudo chmod -R 755 ${ohsPatchWork}
+		#Check whether it is bundle patch
+		patchListFile=`find . -name linux64_patchlist.txt`
+		if [[ "${patchListFile}" == *"linux64_patchlist.txt"* ]]; 
+		then
+			echo "Applying OHS Stack Patch Bundle"
+			command="${oracleHome}/OPatch/opatch napply -silent -oh ${oracleHome}  -phBaseFile linux64_patchlist.txt"
+			echo $command
+			runuser -l oracle -c "cd ${ohsPatchWork}/*/binary_patches ; ${command}"
+			checkSuccess $? "Error : WebLogic patch update failed"
+		else
+			echo "Applying regular OHS patch"
+			command="${oracleHome}/OPatch/opatch apply -silent"
+			echo $command
+			runuser -l oracle -c "cd ${ohsPatchWork}/* ; ${command}"
+			checkSuccess $? "Error : OHS patch update failed"
+		fi
+		echo "OHS patch details after applying patch"
+		runuser -l oracle -c "$oracleHome/OPatch/opatch lsinventory"
+	fi
+}
+
+
 # Create user "oracle", used for instalation and setup
 function addOracleGroupAndUser()
 {
@@ -285,6 +347,9 @@ export BASE_DIR="$(readlink -f ${CURR_DIR})"
 export acceptOTNLicenseAgreement=$1
 export otnusername=$2
 export otnpassword=$3
+export opatchURL="$4"
+export opatchURL="$5"
+export ohsPatchWork="/u01/app/ohspatch"
 export OHS_DEPNDENCIES="zip unzip wget rng-tools binutils compat-libcap1 compat-libstdc++-33 compat-libstdc++-33.i686 gcc gcc-c++ glibc glibc.i686 glibc-devel libaio libaio-devel libgcc libgcc.i686 libstdc++ libstdc++.i686 libstdc++-devel ksh make sysstat numactl numactl-devel"
 export APP_PATH="/u01/app"
 export JDK_PATH="${APP_PATH}/jdk"
@@ -311,9 +376,11 @@ installDependencies
 updateOS
 setupInstallPath
 downloadJDK
-validateJDKZipCheckSum
+#validateJDKZipCheckSum
 downloadOHS
 setupJDK
 createOHSTemplates
 installOHS
+opatchUpdate
+ohspatchUpdate
 cleanup
