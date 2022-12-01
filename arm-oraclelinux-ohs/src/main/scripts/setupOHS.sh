@@ -63,8 +63,8 @@ function opatchUpdate()
 {
 	if [ $opatchURL != "none" ];
 	then
-		sudo mkdir -p ${opatchWork}
-		cd ${opatchWork}
+		sudo mkdir -p ${ohsPatchWork}
+		cd ${ohsPatchWork}
 		filename=${opatchURL##*/}
 		downloadUsingWget "$opatchURL"
 		echo "Verifying the ${filename} patch download"
@@ -75,9 +75,9 @@ function opatchUpdate()
 		unzip $filename
 		opatchFileName=`find . -name opatch_generic.jar`
 		command="$JAVA_HOME/bin/java -jar ${opatchFileName} -silent oracle_home=$oracleHome"
-		sudo chown -R $username:$groupname ${opatchWork}
+		sudo chown -R $username:$groupname ${ohsPatchWork}
 		echo "Executing optach update command:"${command}
-		runuser -l oracle -c "cd ${opatchWork}; ${command}"
+		runuser -l oracle -c "cd ${ohsPatchWork}; ${command}"
 		checkSuccess $? "Error : Updating opatch failed"
 		echo "Opatch version after updating patch"
 		runuser -l oracle -c "$oracleHome/OPatch/opatch version"
