@@ -122,6 +122,7 @@ function cleanup()
 	rm -f $OHS_PATH/$OHS_FILE_NAME
 	rm -f $OHS_PATH/$OHS_INSTALLER_FILE
 	rm -rf $OHS_PATH/silent-template
+	rm -rf $ohsPatchWork
 	
 	echo "Cleanup completed."
 }
