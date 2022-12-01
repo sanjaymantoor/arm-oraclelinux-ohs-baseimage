@@ -38,6 +38,25 @@ function updateOS()
 	uname -a
 }
 
+# Download files supplied as part of downloadURL
+function downloadUsingWget()
+{
+   downloadURL=$1
+   filename=${downloadURL##*/}
+   for in in {1..5}
+   do
+     echo wget --no-check-certificate $downloadURL
+     wget --no-check-certificate $downloadURL
+     if [ $? != 0 ];
+     then
+        echo "$filename Driver Download failed on $downloadURL. Trying again..."
+	rm -f $filename
+     else 
+        echo "$filename Driver Downloaded successfully"
+        break
+     fi
+   done
+}
 
 # Update th opatch utility as per opatchURL supplied
 function opatchUpdate()
