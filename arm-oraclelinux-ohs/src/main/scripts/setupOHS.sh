@@ -74,7 +74,7 @@ function opatchUpdate()
 		runuser -l oracle -c "$oracleHome/OPatch/opatch version"
 		unzip $filename
 		opatchFileName=`find . -name opatch_generic.jar`
-		command="java -jar ${opatchFileName} -silent oracle_home=$oracleHome"
+		command="$JAVA_HOME/bin/java -jar ${opatchFileName} -silent oracle_home=$oracleHome"
 		sudo chown -R $username:$groupname ${opatchWork}
 		echo "Executing optach update command:"${command}
 		runuser -l oracle -c "cd ${opatchWork}; ${command}"
@@ -222,7 +222,7 @@ function setupJDK()
     sudo tar -zxf $JDK_PATH/$JDK_FILE_NAME --directory $JDK_PATH
     sudo chown -R $username:$groupname $JDK_PATH
 
-    java -version
+    $JAVA_HOME/bin/java -version
 
     if [ $? == 0 ];
     then
