@@ -77,7 +77,7 @@ function opatchUpdate()
 		command="java -jar ${opatchFileName} -silent oracle_home=$oracleHome"
 		sudo chown -R $username:$groupname ${opatchWork}
 		echo "Executing optach update command:"${command}
-		runuser -l oracle -c "cd $oracleHome/wlserver/server/bin ; . ./setWLSEnv.sh ;cd ${opatchWork}; ${command}"
+		runuser -l oracle -c "cd ${opatchWork}; ${command}"
 		checkSuccess $? "Error : Updating opatch failed"
 		echo "Opatch version after updating patch"
 		runuser -l oracle -c "$oracleHome/OPatch/opatch version"
@@ -386,6 +386,7 @@ export OHS_DOWNLOAD_URL="https://download.oracle.com/otn/nt/middleware/12c/$OHS_
 export OHS_INSTALLER_FILE="fmw_12.2.1.4.0_ohs_linux64.bin"
 export INSTALL_PATH="$OHS_PATH/install"
 export OHS_INSTALLER="$OHS_PATH/$OHS_INSTALLER_FILE"
+export oracleHome="/u01/app/ohs/install/oracle/middleware/oracle_home"
 export groupname="oracle"
 export username="oracle"
 export user_home_dir="/u01/oracle"
